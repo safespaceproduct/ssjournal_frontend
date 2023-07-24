@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ssjournal_frontend/static/css/main.fda20e80.css",
+    "main.js": "/ssjournal_frontend/static/js/main.7f5e86f8.js",
+    "static/js/787.62c743a0.chunk.js": "/ssjournal_frontend/static/js/787.62c743a0.chunk.js",
+    "index.html": "/ssjournal_frontend/index.html",
+    "main.fda20e80.css.map": "/ssjournal_frontend/static/css/main.fda20e80.css.map",
+    "main.7f5e86f8.js.map": "/ssjournal_frontend/static/js/main.7f5e86f8.js.map",
+    "787.62c743a0.chunk.js.map": "/ssjournal_frontend/static/js/787.62c743a0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fda20e80.css",
+    "static/js/main.7f5e86f8.js"
+  ]
+}
