@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { addEntry } from "./database";
+import { formatDate } from "./utils";
 
 const JournalBox = ({ id }) => {
   const [buttons, setButtons] = useState([
@@ -10,25 +11,12 @@ const JournalBox = ({ id }) => {
   ]);
   const [activeButton, setActiveButton] = useState(null);
   const [showMoreButton, setShowMoreButton] = useState(false);
-  const formatDate = (time) => {
-    const date = new Date(time);
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    };
-    const { format } = Intl.DateTimeFormat("en-US", options);
-    return format(date);
-  };
   const formattedDate = formatDate(Date.now());
   const [currEntry, setCurrEntry] = useState({
     date: formattedDate,
     category: "General",
     text: "",
-  }); // current entry [text
+  });
   addEntry(currEntry, id);
   const [prompt, setPrompt] = useState("");
   const textEvent = useRef(null);
@@ -65,7 +53,7 @@ const JournalBox = ({ id }) => {
       curr.text = text;
       return curr;
     });
-    addEntry(currEntry, id);
+    console.log(currEntry);
   };
 
   const categoryPrompts = {

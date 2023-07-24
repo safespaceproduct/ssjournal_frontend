@@ -18,3 +18,24 @@ export function getEntry(index) {
 export function getEntries() {
   return journalEntries;
 }
+
+export async function postEntry(entry, user_id) {
+  const response = await fetch("http://localhost:8000/journalentry/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: entry.text,
+      category: "Work",
+      user: user_id,
+    }),
+  });
+  journalEntries = [];
+  if (!response.ok) {
+    throw new Error(`Failed to post entry: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
+}

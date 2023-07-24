@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import JournalLog from "./JournalLog";
 import JournalBox from "./JournalBox";
-import { getEntries, deleteEntry } from "./database";
+import { getEntries, deleteEntry, postEntry } from "./database";
 import { formatDate } from "./utils";
 
 const JournalEntry = () => {
@@ -17,17 +17,26 @@ const JournalEntry = () => {
   const formattedDate = formatDate(currentDate);
 
   // remove the journal boxes, and log the new entries
-  const saveJournal = () => {
-    // After saving, add them to the logged entries
+  const saveJournal = async () => {
+    const user_id = 1; // replace this with the actual user ID
     const curr = getEntries();
+    console.log(curr);
     const entriesCopy = curr.slice();
     setLoggedEntries(entriesCopy);
     setJournalBoxes([]);
+
+    for (const entry of entriesCopy) {
+      try {
+        await postEntry(entry, user_id);
+      } catch (error) {
+        console.error(`Failed to post entry: ${error}`);
+      }
+    }
   };
 
   // add new journal box
   const addTopic = () => {
-    const newId = `${getEntries().length}`;
+    const newId = getEntries().length;
     const newBox = {
       id: newId,
       element: <JournalBox id={newId} />,

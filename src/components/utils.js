@@ -8,6 +8,5 @@ export const formatDate = (time) => {
   const { format } = Intl.DateTimeFormat("en-US", options);
   const [month, day, year] = format(date).replace(",", "").split(" ");
   const formattedDate = `${day} ${month} ${year}`;
-  console.log(formattedDate);
   return formattedDate;
 };
