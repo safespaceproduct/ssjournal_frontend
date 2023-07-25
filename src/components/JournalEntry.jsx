@@ -3,9 +3,12 @@ import JournalLog from "./JournalLog";
 import JournalBox from "./JournalBox";
 import { getEntries, deleteEntry, postEntry } from "./database";
 import { formatDate } from "./utils";
+import { useParams } from "react-router-dom";
+import { fetchEntry } from "./database";
 
 const JournalEntry = () => {
   // journalBoxes are now objects with id and element
+  const { user_id } = useParams();
   const [journalBoxes, setJournalBoxes] = useState([
     {
       id: 0,
@@ -15,15 +18,14 @@ const JournalEntry = () => {
   const [loggedEntries, setLoggedEntries] = useState([]);
   const currentDate = Date.now();
   const formattedDate = formatDate(currentDate);
+  const [shouldRenderJournalLog, setShouldRenderJournalLog] = useState(true);
 
   // remove the journal boxes, and log the new entries
   const saveJournal = async () => {
-    const user_id = 1; // replace this with the actual user ID
-    const curr = getEntries();
-    console.log(curr);
-    const entriesCopy = curr.slice();
+    const entriesCopy = [...loggedEntries, ...getEntries()];
     setLoggedEntries(entriesCopy);
     setJournalBoxes([]);
+    setShouldRenderJournalLog(false); // Set to false to hide the existing journal log temporarily
 
     for (const entry of entriesCopy) {
       try {
@@ -31,6 +33,14 @@ const JournalEntry = () => {
       } catch (error) {
         console.error(`Failed to post entry: ${error}`);
       }
+    }
+
+    try {
+      const newEntries = await getEntries(); // Fetch the updated entries from the database
+      setLoggedEntries(newEntries);
+      setShouldRenderJournalLog(true); // Set to true to re-render the JournalLog component with the new entries
+    } catch (error) {
+      console.error(`Failed to fetch logged entries: ${error}`);
     }
   };
 
@@ -62,7 +72,6 @@ const JournalEntry = () => {
   const cancelDelete = () => {
     setShowDeleteModal(false);
   };
-  const user_id = 1;
 
   return (
     <div>
@@ -91,9 +100,11 @@ const JournalEntry = () => {
             Save
           </button>
         </div>
-        <div>
-          <JournalLog user_id={user_id} />
-        </div>
+        {shouldRenderJournalLog && (
+          <div>
+            <JournalLog user_id={user_id} />
+          </div>
+        )}
 
         {/* Delete Confirmation Modal */}
         {showDeleteModal && (

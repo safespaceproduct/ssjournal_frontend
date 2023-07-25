@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { formatDate } from "./utils";
 import { fetchEntry } from "./database";
+import { useParams } from "react-router-dom";
 
 const getTime = (date) => {
   return date.slice(-8);

@@ -1,12 +1,20 @@
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import JournalEntry from "./components/JournalEntry";
-// import JournalLog from "./components/JournalLog";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <JournalEntry />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route
+            path="ssjournal_frontend/users/:user_id"
+            element={<JournalEntry />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
