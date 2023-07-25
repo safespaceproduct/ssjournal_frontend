@@ -62,6 +62,7 @@ const JournalEntry = () => {
   const cancelDelete = () => {
     setShowDeleteModal(false);
   };
+  const user_id = 1;
 
   return (
     <div>
@@ -90,7 +91,9 @@ const JournalEntry = () => {
             Save
           </button>
         </div>
-        <div>{<JournalLog entries={loggedEntries} />}</div>
+        <div>
+          <JournalLog user_id={user_id} />
+        </div>
 
         {/* Delete Confirmation Modal */}
         {showDeleteModal && (

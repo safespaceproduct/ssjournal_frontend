@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { formatDate } from "./utils";
+import { fetchEntry } from "./database";
 
 const getTime = (date) => {
   return date.slice(-8);
@@ -12,7 +13,7 @@ const JournalEntry = ({ id, date, category, text }) => {
         <h3>
           About My {category}
           <span className="timeStyle">
-            {getTime(date)}
+            {date}
             <i className="fas fa-edit" style={{ float: "right" }}></i>
           </span>
         </h3>
@@ -26,7 +27,7 @@ const groupEntriesByDate = (entries) => {
   const groupedEntries = {};
 
   entries.forEach((entry) => {
-    const date = formatDate(entry.date);
+    const date = entry.date;
     if (groupedEntries[date]) {
       groupedEntries[date].push(entry);
     } else {
@@ -37,7 +38,18 @@ const groupEntriesByDate = (entries) => {
   return groupedEntries;
 };
 
-const JournalLog = ({ entries }) => {
+const JournalLog = ({ user_id }) => {
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    const fetchEntries = async () => {
+      const entries = await fetchEntry(user_id);
+      setEntries(entries);
+    };
+
+    fetchEntries();
+  }, [user_id]);
+
   const groupedEntries = groupEntriesByDate(entries);
 
   return (
