@@ -27,5 +27,5 @@ export const getTime = (dateString) => {
   const ampm = hours >= 12 ? "PM" : "AM";
   const formattedHours = hours % 12 || 12;
   const formattedMinutes = String(minutes).padStart(2, "0");
-  return `${formattedHours}.${formattedMinutes}${ampm}`;
+  return `${formattedHours}:${formattedMinutes}${ampm}`;
 };

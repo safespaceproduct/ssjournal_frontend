@@ -5,9 +5,12 @@
 }
 
 .journal-app {
-  /* border : red solid 1px;  */
   display: block;
   min-width: 500px;
+}
+
+.journal-box {
+  margin-top: 3%;
 }
 
 h1 {
@@ -18,35 +21,56 @@ h2 {
   font-size: 1rem;
 }
 
+h3 {
+  font-family: "montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.date {
+  color: var(--grayscale-gray-1, #3d4040);
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 140%;
+}
+
 .journal-entry {
   margin: 0 auto;
-  /* border : red solid 1px; */
+  padding: 2% 2%;
   width: 80%;
+}
+
+@media (min-width: 600px) {
+  .journal-entry {
+    border-radius: 10px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+  }   
 }
 
 .journal-header {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 }
 
 .topic-buttons {
   padding-left: 20px;
   display: flex;
-  justify-content: flex-end;
-  /* border : purple solid 1px; */
-  width: 65%;
+  width: 45%;
 }
 
 .topic-buttons button {
-  margin-left: auto;
-  border: green solid 1px;
+  color: var(--gray-2, #4f4f4f);
+  font-family: "montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   border-radius: 50px;
-  padding: 1% 2%;
+  padding: 2% 4%;
   background-color: white;
   border: 2px solid #ddd;
-  /* margin: 0 10px; */
   border-style: dashed;
+  margin-right: 8%;
 }
 
 .topic-buttons button:hover {
@@ -69,19 +93,35 @@ h2 {
 
 .topic-buttons button.more.active {
   border-radius: 50px;
-  padding: 1% 2%;
+  padding: 2% 4%;
   background-color: white;
   border: 2px solid #ddd;
   /* margin: 0 10px; */
   color: black;
   cursor: pointer;
   margin-right: 60%;
+  justify-self: flex-start;
+}
+
+.topic-buttons button.more.active:hover {
+  border-radius: 50px;
+  padding: 2% 4%;
+  background-color: #ddd;
+  border: 2px solid #ddd;
+  color: black;
+  cursor: pointer;
+  margin-right: 60%;
+  justify-self: flex-start;
 }
 
 .journal-text {
   width: 100%;
   height: 150px;
-  font-size: 16px;
+  color: var(--grayscale-gray-1, #3d4040);
+  font-family: "roboto", sans-serif;
+  font-size: 15px;
+  line-height: 140%;
+  font-weight: 400;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 0px solid #ddd;
@@ -91,9 +131,27 @@ h2 {
   white-space: pre-wrap; /* preserve newlines and wrap at spaces */
 }
 
+.journal-text::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;  
+  font-weight: 400;
+  color: var(--grayscale-gray-2, #999);
+  font-size: 15px;
+}
+
+
 .delete-journal {
   background: transparent;
   color: black;
+  border: none;
+  float: right; /* Position to the right of the box */
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.delete-journal:hover {
+  background: transparent;
+  color: rgb(219, 63, 63);
   border: none;
   float: right; /* Position to the right of the box */
   font-size: 10px;
@@ -170,12 +228,14 @@ h2 {
 
 .save-button {
   background-color: #ff8416;
+  width: 100%;
   color: #fff;
-  padding: 10px 45%;
+  font-family: "montserrat", sans-serif;
+  font-size: 14px;
+  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
   margin-top: 0px;
 }
 
@@ -183,7 +243,7 @@ h2 {
   margin: 0 auto;
   padding-top: 20px;
   background-color: #fff;
-  width: 80%;
+  width: 84%;
 }
 
 .log-item {
@@ -194,20 +254,29 @@ h2 {
   padding-top: 7px;
   padding-bottom: 7px;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   border-style: solid;
-  border-radius: 3%;
   border-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 1%;
 }
 
 .timeStyle {
-  font-size: 14px;
-  color: #aaa;
+  font-style: montserrat, sans-serif;
+  color: var(--grayscale-gray-3, #d9d9d9);
+  font-size: 16px;
   margin-left: 10px;
 }
 
 .timeStyle i {
   cursor: pointer;
+}
+
+.log-text {
+  color: var(--grayscale-gray-1, #3d4040);
+  font-family: "roboto", sans-serif;
+  font-size: 15px;
+  line-height: 140%;
+  font-weight: 400;
 }
 
 p {
@@ -228,7 +297,7 @@ p {
 }
 
 .entry-saved-message span {
-  font-family: Montserrat;
+  font-family: "montserrat", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;

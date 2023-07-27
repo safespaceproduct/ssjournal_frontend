@@ -83,8 +83,7 @@ const JournalEntry = () => {
                 {box.element}
                 <button
                   className="delete-journal"
-                  onClick={() => deleteJournal(box.id)}
-                >
+                  onClick={() => deleteJournal(box.id)}>
                   X
                 </button>{" "}
               </div>
@@ -93,20 +92,19 @@ const JournalEntry = () => {
               Add another topic
             </button>
             <br />
-            <br />
-
             <button className="save-button" onClick={saveJournal}>
               Save
             </button>
           </div>
         )}
+        {/* Render the JournalLog component only if shouldRenderJournalLog is true*/}
+        {shouldRenderJournalLog && (
+          <div>
+            <JournalLog user_id={user_id} showEntrySaved={!showJournalEntry} />
+          </div>
+        )}
       </div>
-      {/* Render the JournalLog component only if shouldRenderJournalLog is true*/}
-      {shouldRenderJournalLog && (
-        <div>
-          <JournalLog user_id={user_id} showEntrySaved={!showJournalEntry} />
-        </div>
-      )}
+      
 
       {/* Render the delete confirmation modal if showDeleteModal is true*/}
       {showDeleteModal && (

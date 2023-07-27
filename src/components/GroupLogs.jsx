@@ -1,7 +1,12 @@
 import { getTime } from "./utils";
 import { CheckOne } from "@icon-park/react";
+import { Icon } from "@iconify/react";
 
 const GroupLogs = ({ group, date, showEntrySaved }) => {
+  const handleEdit = (entryId) => {
+    // Add your edit logic here
+    console.log("Editing entry with id ${entryId}");
+  };
   return (
     <div>
       <h2 className="journal-entry-box-header">
@@ -20,7 +25,12 @@ const GroupLogs = ({ group, date, showEntrySaved }) => {
               About My {entry.category}{" "}
               <span className="timeStyle">
                 {getTime(entry.date_created)}
-                <i className="fas fa-edit" style={{ float: "right" }}></i>
+                <Icon
+                  className="fas fa-edit"
+                  icon="fluent:edit-20-regular"
+                  style={{ float: "right", cursor: "pointer" }}
+                  onClick={() => handleEdit(entry)}
+                />{" "}
               </span>
             </h3>
             <p className="log-text">{entry.text}</p>
