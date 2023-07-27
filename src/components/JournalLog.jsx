@@ -44,7 +44,7 @@ const groupEntriesByDate = (entries) => {
   return groupedEntries;
 };
 
-const JournalLog = ({ user_id }) => {
+const JournalLog = ({ user_id, showEntrySaved }) => {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
@@ -58,13 +58,20 @@ const JournalLog = ({ user_id }) => {
 
   const groupedEntries = groupEntriesByDate(entries);
   const groupKeys = Object.keys(groupedEntries);
-
+  console.log(showEntrySaved);
   return (
     <div className="journal-log">
       {groupKeys.map((groupKey) => {
         const entries = groupedEntries[groupKey];
-
-        return <GroupLogs key={groupKey} group={entries} date={groupKey} />;
+        const isShowEntrySaved = showEntrySaved && groupKey === groupKeys[0];
+        return (
+          <GroupLogs
+            key={groupKey}
+            group={entries}
+            date={groupKey}
+            showEntrySaved={isShowEntrySaved}
+          />
+        );
       })}
     </div>
   );

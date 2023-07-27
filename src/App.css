@@ -215,3 +215,25 @@ p {
   word-wrap: break-word; /* wrap long words onto the next line */
   overflow-wrap: break-word; /* wrap long words onto the next line (alternative property) */
 }
+
+.journal-entry-box-header {
+  display: flex;
+  align-items: center;
+}
+
+.entry-saved-message {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.entry-saved-message span {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-left: 8px;
+  color: #63b6aa;
+}

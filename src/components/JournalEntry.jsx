@@ -20,11 +20,12 @@ const JournalEntry = () => {
   const [shouldRenderJournalLog, setShouldRenderJournalLog] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [showJournalEntry, setShowJournalEntry] = useState(true);
 
   // remove the journal boxes, and log the new entries
   const saveJournal = async () => {
     const entriesCopy = [...loggedEntries, ...getEntries()];
-    setJournalBoxes([]);
+    setShowJournalEntry(false);
     setShouldRenderJournalLog(false); // Set to false to hide the existing journal log temporarily
     for (const entry of entriesCopy) {
       if (entry === "") {
@@ -74,54 +75,56 @@ const JournalEntry = () => {
     <div>
       <div className="journal-app">
         <h1 className="title">Document your thoughts 💭</h1>
-        <div className="journal-entry">
-          <h3 className="date">{formattedDate}</h3>
-          {journalBoxes.map((box) => (
-            <div key={box.id}>
-              {box.element}
-              <button
-                className="delete-journal"
-                onClick={() => deleteJournal(box.id)}
-              >
-                X
-              </button>{" "}
-            </div>
-          ))}
-          <button className="new-topic-button" onClick={addTopic}>
-            Add another topic
-          </button>
-          <br />
-          <br />
-
-          <button className="save-button" onClick={saveJournal}>
-            Save
-          </button>
-        </div>
-        {shouldRenderJournalLog && (
-          <div>
-            <JournalLog user_id={user_id} />
-          </div>
-        )}
-
-        {/* Delete Confirmation Modal */}
-        {showDeleteModal && (
-          <div className="delete-modal-overlay">
-            <div className="delete-modal">
-              <p>Are you sure you want to delete this topic?</p>
-              <div className="delete-modal-buttons">
-                <button className="cancel-button" onClick={cancelDelete}>
-                  Cancel
-                </button>
-                <button className="confirm-button" onClick={confirmDelete}>
-                  Confirm
-                </button>
+        {showJournalEntry && (
+          <div className="journal-entry">
+            <h3 className="date">{formattedDate}</h3>
+            {journalBoxes.map((box) => (
+              <div key={box.id}>
+                {box.element}
+                <button
+                  className="delete-journal"
+                  onClick={() => deleteJournal(box.id)}
+                >
+                  X
+                </button>{" "}
               </div>
-            </div>
+            ))}
+            <button className="new-topic-button" onClick={addTopic}>
+              Add another topic
+            </button>
+            <br />
+            <br />
+
+            <button className="save-button" onClick={saveJournal}>
+              Save
+            </button>
           </div>
         )}
       </div>
+      {/* Render the JournalLog component only if shouldRenderJournalLog is true*/}
+      {shouldRenderJournalLog && (
+        <div>
+          <JournalLog user_id={user_id} showEntrySaved={!showJournalEntry} />
+        </div>
+      )}
+
+      {/* Render the delete confirmation modal if showDeleteModal is true*/}
+      {showDeleteModal && (
+        <div className="delete-modal-overlay">
+          <div className="delete-modal">
+            <p>Are you sure you want to delete this topic?</p>
+            <div className="delete-modal-buttons">
+              <button className="cancel-button" onClick={cancelDelete}>
+                Cancel
+              </button>
+              <button className="confirm-button" onClick={confirmDelete}>
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
 export default JournalEntry;
