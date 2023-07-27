@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { formatDate } from "./utils";
+import { formatDBDate } from "./utils";
 import { fetchEntry } from "./database";
-import { useParams } from "react-router-dom";
+import GroupLogs from "./GroupLogs";
 
-const getTime = (date) => {
-  return date.slice(-8);
-};
-
-const JournalEntry = ({ id, date, category, text }) => {
+/*
+#Probably not needed anymore (?)
+  const JournalEntry = ({ date_created, category, text }) => {
   return (
     <div className="log-item">
       <div className="log-meta">
         <h3>
           About My {category}
           <span className="timeStyle">
-            {date}
+            {getTime(date_created)}
             <i className="fas fa-edit" style={{ float: "right" }}></i>
           </span>
         </h3>
@@ -23,19 +21,26 @@ const JournalEntry = ({ id, date, category, text }) => {
     </div>
   );
 };
+*/
 
 const groupEntriesByDate = (entries) => {
+  const TESTENTRY = {
+    id: 1234,
+    date_created: "2023-07-01T12:34:56.000Z",
+    category: "Mood",
+    text: "Feeling great today!",
+  };
+  const testEntries = [TESTENTRY, ...entries];
+  const reversedEntries = [...testEntries].reverse();
   const groupedEntries = {};
-
-  entries.forEach((entry) => {
-    const date = entry.date;
+  reversedEntries.forEach((entry) => {
+    const date = formatDBDate(entry.date_created);
     if (groupedEntries[date]) {
       groupedEntries[date].push(entry);
     } else {
       groupedEntries[date] = [entry];
     }
   });
-
   return groupedEntries;
 };
 
@@ -52,19 +57,16 @@ const JournalLog = ({ user_id }) => {
   }, [user_id]);
 
   const groupedEntries = groupEntriesByDate(entries);
+  const groupKeys = Object.keys(groupedEntries);
 
   return (
     <div className="journal-log">
-      {Object.keys(groupedEntries).map((date) => (
-        <div key={date}>
-          <h2>{date}</h2>
-          {groupedEntries[date].map((entry) => (
-            <JournalEntry key={entry.id} {...entry} />
-          ))}
-        </div>
-      ))}
+      {groupKeys.map((groupKey) => {
+        const entries = groupedEntries[groupKey];
+
+        return <GroupLogs key={groupKey} group={entries} date={groupKey} />;
+      })}
     </div>
   );
 };
-
 export default JournalLog;

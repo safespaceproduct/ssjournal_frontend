@@ -8,7 +8,7 @@ export function addEntry(entry, index) {
 }
 
 export function deleteEntry(index) {
-  journalEntries.splice(index, 1);
+  journalEntries[index] = "";
 }
 
 export function getEntry(index) {

@@ -4,7 +4,6 @@ import JournalBox from "./JournalBox";
 import { getEntries, deleteEntry, postEntry } from "./database";
 import { formatDate } from "./utils";
 import { useParams } from "react-router-dom";
-import { fetchEntry } from "./database";
 
 const JournalEntry = () => {
   // journalBoxes are now objects with id and element
@@ -15,19 +14,22 @@ const JournalEntry = () => {
       element: <JournalBox id={0} />,
     },
   ]);
-  const [loggedEntries, setLoggedEntries] = useState([]);
+  const [loggedEntries] = useState([]);
   const currentDate = Date.now();
   const formattedDate = formatDate(currentDate);
   const [shouldRenderJournalLog, setShouldRenderJournalLog] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // remove the journal boxes, and log the new entries
   const saveJournal = async () => {
     const entriesCopy = [...loggedEntries, ...getEntries()];
-    setLoggedEntries(entriesCopy);
     setJournalBoxes([]);
     setShouldRenderJournalLog(false); // Set to false to hide the existing journal log temporarily
-
     for (const entry of entriesCopy) {
+      if (entry === "") {
+        continue; // Skip this entry if its entry is empty
+      }
       try {
         await postEntry(entry, user_id);
       } catch (error) {
@@ -36,8 +38,6 @@ const JournalEntry = () => {
     }
 
     try {
-      const newEntries = await getEntries(); // Fetch the updated entries from the database
-      setLoggedEntries(newEntries);
       setShouldRenderJournalLog(true); // Set to true to re-render the JournalLog component with the new entries
     } catch (error) {
       console.error(`Failed to fetch logged entries: ${error}`);
@@ -53,9 +53,6 @@ const JournalEntry = () => {
     };
     setJournalBoxes((prev) => [...prev, newBox]);
   };
-
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState(null);
 
   // delete journal box, and their entries
   const deleteJournal = (index) => {
@@ -77,8 +74,8 @@ const JournalEntry = () => {
     <div>
       <div className="journal-app">
         <h1 className="title">Document your thoughts 💭</h1>
-        <h3 class="date">{formattedDate}</h3>
         <div className="journal-entry">
+          <h3 className="date">{formattedDate}</h3>
           {journalBoxes.map((box) => (
             <div key={box.id}>
               {box.element}
