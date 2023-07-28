@@ -1,6 +1,6 @@
-// database.js
-// to be replaced by actual db in future
+import config from "./config";
 
+const API_URL = config.API_URL;
 let journalEntries = [];
 
 export function addEntry(entry, index) {
@@ -20,7 +20,7 @@ export function getEntries() {
 }
 
 export async function postEntry(entry, user_id) {
-  const response = await fetch("http://localhost:8000/journalentry/", {
+  const response = await fetch(`${API_URL}/journalentry/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,9 +41,7 @@ export async function postEntry(entry, user_id) {
 }
 
 export async function fetchEntry(user_id) {
-  const response = await fetch(
-    `http://localhost:8000/journalentry?user=${user_id}`
-  );
+  const response = await fetch(`${API_URL}/journalentry?user=${user_id}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch entry: ${response.status}`);
   }
@@ -59,32 +57,30 @@ export async function patchEntry(entry) {
       category: entry.category,
     })
   );
-  const response = await fetch(
-    `http://localhost:8000/journalentry/${entry.id}/`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        text: entry.text,
-        category: entry.category,
-      }),
-    }
-  );
+  const response = await fetch(`${API_URL}/journalentry/${entry.id}/`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: entry.text,
+      category: entry.category,
+    }),
+  });
   if (!response.ok) {
     throw new Error(`Failed to patch entry: ${response.status}`);
   }
   const updatedEntry = await response.json();
-  console.log(`Updated entry: ${JSON.stringify(updatedEntry)}`);  return updatedEntry;
+  console.log(`Updated entry: ${JSON.stringify(updatedEntry)}`);
+  return updatedEntry;
 }
 
 export async function deleteEntryFromDB(entry_id) {
-  const response = await fetch(`http://localhost:8000/journalentry/${entry_id}`, {
-    method: 'DELETE'
+  const response = await fetch(`${API_URL}/journalentry/${entry_id}`, {
+    method: "DELETE",
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to delete entry: ${response.status}`);  
-  }  
+    throw new Error(`Failed to delete entry: ${response.status}`);
+  }
 }
