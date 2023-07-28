@@ -10,7 +10,7 @@ function App() {
         <Routes>
           <Route
             path="ssjournal_frontend/users/:user_id"
-            element={<JournalEntry />}
+            element={<JournalEntry showBox={true}/>}
           />
         </Routes>
       </div>

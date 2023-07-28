@@ -18,13 +18,14 @@ h1 {
 }
 
 h2 {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 h3 {
   font-family: "montserrat", sans-serif;
   font-size: 16px;
   font-weight: 600;
+  /* margin: 0; */
 }
 
 .date {
@@ -35,15 +36,25 @@ h3 {
   line-height: 140%;
 }
 
+.Titledate {
+  color: var(--grayscale-gray-1, #3d4040);
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 140%;
+  padding-left: 8%;
+}
+
 .journal-entry {
   margin: 0 auto;
   padding: 2% 2%;
   width: 80%;
+  padding-top: 0%;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 650px) {
   .journal-entry {
-    border-radius: 10px;
+    border-radius: 5px;
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.1);
   }   
@@ -58,6 +69,7 @@ h3 {
   padding-left: 20px;
   display: flex;
   width: 45%;
+  justify-items: center;
 }
 
 .topic-buttons button {
@@ -71,6 +83,7 @@ h3 {
   border: 2px solid #ddd;
   border-style: dashed;
   margin-right: 8%;
+  margin-top: 2%;
 }
 
 .topic-buttons button:hover {
@@ -84,6 +97,7 @@ h3 {
   justify-self: flex-start;
   border: 0px;
   margin-left: 2%;
+  margin-right: 0%;
 }
 
 .topic-buttons button.more {
@@ -144,7 +158,8 @@ h3 {
   background: transparent;
   color: black;
   border: none;
-  float: right; /* Position to the right of the box */
+  margin-left: auto; 
+  /* float: right; Position to the right of the box */
   font-size: 10px;
   cursor: pointer;
 }
@@ -264,7 +279,7 @@ h3 {
   font-style: montserrat, sans-serif;
   color: var(--grayscale-gray-3, #d9d9d9);
   font-size: 16px;
-  margin-left: 10px;
+  margin-left: 3px;
 }
 
 .timeStyle i {
@@ -277,6 +292,7 @@ h3 {
   font-size: 15px;
   line-height: 140%;
   font-weight: 400;
+  /* -webkit-user-modify: read-write; */
 }
 
 p {
@@ -305,4 +321,32 @@ p {
   text-align: left;
   margin-left: 8px;
   color: #63b6aa;
+}
+
+
+@media (max-width: 650px) {
+  .topic-buttons {
+    display: flex;  
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .topic-buttons.active {
+    display: flex;  
+    width: 100%;
+    flex-wrap: nowrap;
+    padding-left: 5px;
+  }
+
+  .topic-buttons button {
+    padding: 3% 6%;
+  }
+
+  .save-button {
+    padding: 15px;
+  }
+
+  .new-topic-button {
+    padding: 2% 4%; /* Reduce horizontal padding */
+  }
 }
