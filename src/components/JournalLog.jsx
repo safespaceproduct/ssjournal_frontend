@@ -3,26 +3,6 @@ import { formatDBDate } from "./utils";
 import { fetchEntry } from "./database";
 import GroupLogs from "./GroupLogs";
 
-/*
-#Probably not needed anymore (?)
-  const JournalEntry = ({ date_created, category, text }) => {
-  return (
-    <div className="log-item">
-      <div className="log-meta">
-        <h3>
-          About My {category}
-          <span className="timeStyle">
-            {getTime(date_created)}
-            <i className="fas fa-edit" style={{ float: "right" }}></i>
-          </span>
-        </h3>
-      </div>
-      <p className="log-text">{text}</p>
-    </div>
-  );
-};
-*/
-
 const groupEntriesByDate = (entries) => {
   const TESTENTRY = {
     id: 1234,
@@ -46,6 +26,7 @@ const groupEntriesByDate = (entries) => {
 
 const JournalLog = ({ user_id, showEntrySaved }) => {
   const [entries, setEntries] = useState([]);
+  console.log(entries);
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -58,7 +39,6 @@ const JournalLog = ({ user_id, showEntrySaved }) => {
 
   const groupedEntries = groupEntriesByDate(entries);
   const groupKeys = Object.keys(groupedEntries);
-  console.log(showEntrySaved);
   return (
     <div className="journal-log">
       {groupKeys.map((groupKey) => {

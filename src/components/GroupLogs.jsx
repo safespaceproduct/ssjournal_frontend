@@ -65,7 +65,7 @@ const GroupLogs = ({ group, date, showEntrySaved }) => {
                     <Icon
                       className="fas fa-edit"
                       icon="fluent:edit-20-regular"
-                      style={{ float: "right", cursor: "pointer", color: "#3d4040", size: "20" }}
+                      style={{ float: "right", cursor: "pointer", size: "20", color: "#3d4040" }}
                       onClick={() => handleEdit(entry)}
                     />{" "}
                   </span>

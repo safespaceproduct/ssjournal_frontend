@@ -106,7 +106,6 @@ const JournalEntry = ({showBox}) => {
           </div>
         )}
       </div>
-      
 
       {/* Render the delete confirmation modal if showDeleteModal is true*/}
       {showDeleteModal && (
