@@ -42,7 +42,6 @@ const JournalBox = ({ id }) => {
       curr.category = topic;
       return curr;
     });
-    addEntry(currEntry, id);
     setActiveButton(topic);
     setShowMoreButton(true); // set showMoreButton to true when any button is active
   };

@@ -51,3 +51,30 @@ export async function fetchEntry(user_id) {
   const data = await response.json();
   return data;
 }
+
+export async function patchEntry(entry) {
+  console.log(
+    JSON.stringify({
+      text: entry.text,
+      category: entry.category,
+    })
+  );
+  const response = await fetch(
+    `http://localhost:8000/journalentry/${entry.id}/`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: entry.text,
+        category: entry.category,
+      }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error(`Failed to patch entry: ${response.status}`);
+  }
+  const updatedEntry = await response.json();
+  console.log(`Updated entry: ${JSON.stringify(updatedEntry)}`);  return updatedEntry;
+}

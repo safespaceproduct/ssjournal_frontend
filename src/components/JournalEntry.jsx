@@ -28,7 +28,7 @@ const JournalEntry = () => {
     setShowJournalEntry(false);
     setShouldRenderJournalLog(false); // Set to false to hide the existing journal log temporarily
     for (const entry of entriesCopy) {
-      if (entry === "") {
+      if (entry === "" || entry.text === "") {
         continue; // Skip this entry if its entry is empty
       }
       try {
@@ -83,7 +83,8 @@ const JournalEntry = () => {
                 {box.element}
                 <button
                   className="delete-journal"
-                  onClick={() => deleteJournal(box.id)}>
+                  onClick={() => deleteJournal(box.id)}
+                >
                   X
                 </button>{" "}
               </div>
@@ -104,7 +105,6 @@ const JournalEntry = () => {
           </div>
         )}
       </div>
-      
 
       {/* Render the delete confirmation modal if showDeleteModal is true*/}
       {showDeleteModal && (

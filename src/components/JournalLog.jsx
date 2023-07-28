@@ -46,6 +46,7 @@ const groupEntriesByDate = (entries) => {
 
 const JournalLog = ({ user_id, showEntrySaved }) => {
   const [entries, setEntries] = useState([]);
+  console.log(entries);
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -58,7 +59,6 @@ const JournalLog = ({ user_id, showEntrySaved }) => {
 
   const groupedEntries = groupEntriesByDate(entries);
   const groupKeys = Object.keys(groupedEntries);
-  console.log(showEntrySaved);
   return (
     <div className="journal-log">
       {groupKeys.map((groupKey) => {
