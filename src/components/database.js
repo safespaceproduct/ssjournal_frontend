@@ -20,7 +20,7 @@ export function getEntries() {
 }
 
 export async function postEntry(entry, user_id) {
-  const response = await fetch(`${API_URL}/journalentry/`, {
+  const response = await fetch(`${API_URL}/journalentry/?token=${user_id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,6 @@ export async function postEntry(entry, user_id) {
     body: JSON.stringify({
       text: entry.text,
       category: entry.category,
-      user: user_id,
     }),
   });
   journalEntries = [];
@@ -41,7 +40,7 @@ export async function postEntry(entry, user_id) {
 }
 
 export async function fetchEntry(user_id) {
-  const response = await fetch(`${API_URL}/journalentry?user=${user_id}`);
+  const response = await fetch(`${API_URL}/journalentry/?token=${user_id}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch entry: ${response.status}`);
   }
