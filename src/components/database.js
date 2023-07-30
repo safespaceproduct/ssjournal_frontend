@@ -28,7 +28,6 @@ export async function postEntry(entry, user_id) {
     body: JSON.stringify({
       text: entry.text,
       category: entry.category,
-      user: user_id,
     }),
   });
   journalEntries = [];
