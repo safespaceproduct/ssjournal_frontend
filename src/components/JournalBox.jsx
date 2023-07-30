@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { addEntry } from "./database";
 import { formatDate } from "./utils";
 
-const JournalBox = ({ id }) => {
+const JournalBox = ({ id, onDelete}) => {
   const [buttons, setButtons] = useState([
     { topic: "Personal", hide: false },
     { topic: "Work", hide: false },
@@ -42,10 +42,13 @@ const JournalBox = ({ id }) => {
       curr.category = topic;
       return curr;
     });
-    addEntry(currEntry, id);
     setActiveButton(topic);
     setShowMoreButton(true); // set showMoreButton to true when any button is active
   };
+
+  const handleDelete = () => {
+    onDelete(id);
+  }
 
   const updateText = () => {
     const text = textEvent.current.value;
@@ -76,7 +79,7 @@ const JournalBox = ({ id }) => {
       <div className="journal-header">
         <h2>About my</h2>
 
-        <div className="topic-buttons">
+        <div className={`topic-buttons ${showMoreButton ? "active" : ""}`}>
           {buttons.map((btn) => (
             <button
               key={btn.topic}
@@ -102,6 +105,11 @@ const JournalBox = ({ id }) => {
             </button>
           )}
         </div>
+        <button
+          className="delete-journal"
+          onClick={handleDelete}>
+          X
+        </button>{" "}
       </div>
 
       <textarea

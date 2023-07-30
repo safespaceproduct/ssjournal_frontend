@@ -1,20 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import JournalEntry from "./components/JournalEntry";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <div className="App">
         <Routes>
           <Route
-            path="ssjournal_frontend/users/:user_id"
-            element={<JournalEntry />}
+            path="users/:user_id"
+            element={<JournalEntry showBox={true}/>}
           />
         </Routes>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
