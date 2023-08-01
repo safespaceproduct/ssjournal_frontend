@@ -13,6 +13,7 @@ const JournalEntry = ({showBox}) => {
   const formattedDate = formatDate(currentDate);
   const [shouldRenderJournalLog, setShouldRenderJournalLog] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showRedoModal, setRedoModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [showJournalEntry, setShowJournalEntry] = useState(showBox);
 
@@ -28,9 +29,20 @@ const JournalEntry = ({showBox}) => {
     },
   ]);
 
+  const confirmRedo = () => {
+    setRedoModal(false);
+  };
+
   // remove the journal boxes, and log the new entries
   const saveJournal = async () => {
-    const entriesCopy = [...loggedEntries, ...getEntries()];
+    for (const tempEntry of getEntries()) {
+      if (tempEntry !== "" && tempEntry.text === "") {
+        setRedoModal(true);
+        return;
+      }
+    }
+
+    const entriesCopy = getEntries();
     setShowJournalEntry(false);
     setShouldRenderJournalLog(false); // Set to false to hide the existing journal log temporarily
     for (const entry of entriesCopy) {
@@ -117,6 +129,20 @@ const JournalEntry = ({showBox}) => {
                 Cancel
               </button>
               <button className="confirm-button" onClick={confirmDelete}>
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Render the delete confirmation modal if showDeleteModal is true*/}
+      {showRedoModal && (
+        <div className="delete-modal-overlay">
+          <div className="delete-modal">
+            <p>Textbox is empty. Please write something before saving.</p>
+            <div className="delete-modal-buttons">
+              <button className="confirm-button" onClick={confirmRedo}>
                 Confirm
               </button>
             </div>
