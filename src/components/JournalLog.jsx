@@ -10,7 +10,7 @@ const groupEntriesByDate = (entries) => {
     category: "Mood",
     text: "Feeling great today!",
   };
-  const testEntries = [TESTENTRY, ...entries];
+  const testEntries = [...entries];
   const reversedEntries = [...testEntries].reverse();
   const groupedEntries = {};
   reversedEntries.forEach((entry) => {
