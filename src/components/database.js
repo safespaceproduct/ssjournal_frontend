@@ -57,7 +57,7 @@ export async function patchEntry(entry) {
     })
   );
   const response = await fetch(`${API_URL}/journalentry/${entry.id}/`, {
-    method: "PATCH",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
