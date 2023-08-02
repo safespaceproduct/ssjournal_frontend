@@ -49,14 +49,14 @@ export async function fetchEntry(user_id) {
   return data;
 }
 
-export async function patchEntry(entry) {
+export async function patchEntry(entry, user_id) {
   console.log(
     JSON.stringify({
       text: entry.text,
       category: entry.category,
     })
   );
-  const response = await fetch(`${API_URL}/journalentry/${entry.id}/`, {
+  const response = await fetch(`${API_URL}/journalentry/${entry.id}/?token=${user_id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -74,8 +74,8 @@ export async function patchEntry(entry) {
   return updatedEntry;
 }
 
-export async function deleteEntryFromDB(entry_id) {
-  const response = await fetch(`${API_URL}/journalentry/${entry_id}`, {
+export async function deleteEntryFromDB(entry_id, user_id) {
+  const response = await fetch(`${API_URL}/journalentry/${entry_id}/?token=${user_id}`, {
     method: "DELETE",
   });
 

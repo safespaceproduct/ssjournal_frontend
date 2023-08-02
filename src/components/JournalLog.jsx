@@ -50,6 +50,7 @@ const JournalLog = ({ user_id, showEntrySaved }) => {
             group={entries}
             date={groupKey}
             showEntrySaved={isShowEntrySaved}
+            user_id={user_id}
           />
         );
       })}

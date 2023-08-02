@@ -7,6 +7,7 @@ const EditableBox = ({
   defaultText,
   date_created,
   onSave,
+  user_id,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [buttons, setButtons] = useState([
@@ -36,7 +37,7 @@ const EditableBox = ({
 
   const confirmDelete = async () => {
     try {
-      await deleteEntryFromDB(entry_id); // Call your API function to update the entry
+      await deleteEntryFromDB(entry_id, user_id); // Call your API function to update the entry
       setShowDeleteModal(false);
       onSave(currEntry); // Notify the parent component that the entry has been saved
     } catch (error) {
@@ -95,7 +96,7 @@ const EditableBox = ({
       return ;
     }
     try {
-      await patchEntry(currEntry); // Call your API function to update the entry
+      await patchEntry(currEntry, user_id); // Call your API function to update the entry
       onSave(currEntry); // Notify the parent component that the entry has been saved
     } catch (error) {
       console.error(`Failed to update entry: ${error}`);

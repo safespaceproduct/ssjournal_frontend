@@ -4,7 +4,7 @@ import { CheckOne } from "@icon-park/react";
 import { Icon } from "@iconify/react";
 import EditableBox from "./EditableBox";
 
-const GroupLogs = ({ group, date, showEntrySaved }) => {
+const GroupLogs = ({ group, date, showEntrySaved, user_id }) => {
   const [editing, setEditing] = useState(null);
   const [entries, setEntries] = useState(group);
   // const [isEmpty, setIsEmpty] = useState(entries.length === 0);
@@ -57,6 +57,7 @@ const GroupLogs = ({ group, date, showEntrySaved }) => {
                   date_created={entry.date_created}
                   onCancel={handleCancel}
                   onSave={handleSave}
+                  user_id={user_id}
                 />
               ) : (
                 <div>
