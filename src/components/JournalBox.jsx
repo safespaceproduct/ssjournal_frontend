@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { addEntry } from "./database";
 import { formatDate } from "./utils";
+import { ReactComponent as XButton } from "./charm_cross.svg";
 
 const JournalBox = ({ id, onDelete}) => {
   const [buttons, setButtons] = useState([
@@ -108,7 +109,7 @@ const JournalBox = ({ id, onDelete}) => {
         <button
           className="delete-journal"
           onClick={handleDelete}>
-          X
+          <XButton />
         </button>{" "}
       </div>
 
