@@ -20,7 +20,7 @@ import "./App.css";
 
 function App(){
   return (
-    <Div>Under maintenance!</Div>
+    <div>Under maintenance!</div>
   )
 }
 
