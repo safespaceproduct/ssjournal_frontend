@@ -107,7 +107,7 @@ const EditableBox = ({
     <div className="journal-box">
       <hr />
       <div className="journal-header">
-        <h2>About my</h2>
+        <h2>I'm writing about my</h2>
 
         <div className={`topic-buttons ${showMoreButton ? "active" : ""}`}>
           {buttons.map((btn) => (
