@@ -3,6 +3,7 @@ import { addEntry } from "./database";
 import { formatDate } from "./utils";
 import { ReactComponent as XButton } from "./charm_cross.svg";
 
+
 const EntryCreateBox = ({ id, onDelete}) => {
   const [buttons, setButtons] = useState([
     { topic: "Personal", hide: false },
@@ -79,7 +80,6 @@ const EntryCreateBox = ({ id, onDelete}) => {
     <div className="journal-box">
       <div className="journal-header">
         <h2>I'm writing about my</h2>
-
         <div className={`topic-buttons ${showMoreButton ? "active" : ""}`}>
           {buttons.map((btn) => (
             <button

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { getTime } from "./utils";
 import { CheckOne } from "@icon-park/react";
 import { Icon } from "@iconify/react";
+
 import EntryEditBox from "./EntryEditBox";
+import EmotionSelector from "./EmotionSelector";
+import { patchEntry } from "./database";
 
 const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
   const [editing, setEditing] = useState(null);
@@ -16,6 +19,19 @@ const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
   const handleCancel = () => {
     setEditing(null);
   };
+
+  function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const changeEmotionCallback = async (newEmotionCode) => {
+
+    const payload = {}
+    const response = await patchEntry();
+
+    await sleep(1000);
+    console.log(newEmotionCode);
+  }
 
   const handleSave = (newEntry) => {
     // Update the state of the entries
@@ -74,6 +90,10 @@ const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
                     </span>
                   </h3>
                   <p className="log-text">{entry.text}</p>
+
+                  <EmotionSelector emotionCodeInput={0} changeEmotionCallback={changeEmotionCallback}/>
+
+                  
                 </div>
               )}
             </div>

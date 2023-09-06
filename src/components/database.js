@@ -57,7 +57,7 @@ export async function patchEntry(entry, user_id) {
     })
   );
   const response = await fetch(`${API_URL}/journalentry/${entry.id}/?token=${user_id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
