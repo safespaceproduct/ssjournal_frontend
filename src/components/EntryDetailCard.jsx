@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { getTime } from "./utils";
 import { CheckOne } from "@icon-park/react";
 import { Icon } from "@iconify/react";
-import EditableBox from "./EditableBox";
+import EntryEditBox from "./EntryEditBox";
 
-const GroupLogs = ({ group, date, showEntrySaved, user_id }) => {
+const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
   const [editing, setEditing] = useState(null);
   const [entries, setEntries] = useState(group);
   // const [isEmpty, setIsEmpty] = useState(entries.length === 0);
@@ -50,7 +50,7 @@ const GroupLogs = ({ group, date, showEntrySaved, user_id }) => {
           {entries.map((entry) => (
             <div key={entry.id}>
               {editing && editing.id === entry.id ? (
-                <EditableBox
+                <EntryEditBox
                   entry_id={entry.id}
                   defaultCategory={entry.category}
                   defaultText={entry.text}
@@ -84,4 +84,4 @@ const GroupLogs = ({ group, date, showEntrySaved, user_id }) => {
   );
 };
 
-export default GroupLogs;
+export default EntryDetailCard;

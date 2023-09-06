@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
-import JournalEntry from "./components/JournalEntry";
+import MainScreen from "./components/MainScreen";
 import "./App.css";
 
 // function App(){
@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route
             path="users/:user_id"
-            element={<JournalEntry showBox={true}/>}
+            element={<MainScreen showBox={true}/>}
           />
         </Routes>
       </div>

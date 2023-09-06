@@ -3,7 +3,7 @@ import { addEntry } from "./database";
 import { formatDate } from "./utils";
 import { ReactComponent as XButton } from "./charm_cross.svg";
 
-const JournalBox = ({ id, onDelete}) => {
+const EntryCreateBox = ({ id, onDelete}) => {
   const [buttons, setButtons] = useState([
     { topic: "Personal", hide: false },
     { topic: "Work", hide: false },
@@ -128,4 +128,4 @@ const JournalBox = ({ id, onDelete}) => {
   );
 };
 
-export default JournalBox;
+export default EntryCreateBox;

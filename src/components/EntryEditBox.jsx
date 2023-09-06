@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { patchEntry, deleteEntryFromDB } from "./database";
 
-const EditableBox = ({
+const EntryEditBox = ({
   entry_id,
   defaultCategory,
   defaultText,
@@ -173,4 +173,4 @@ const EditableBox = ({
   );
 };
 
-export default EditableBox;
+export default EntryEditBox;

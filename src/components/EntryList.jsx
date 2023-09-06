@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { formatDBDate } from "./utils";
 import { fetchEntry } from "./database";
-import GroupLogs from "./GroupLogs";
+import EntryDetailCard from "./EntryDetailCard";
 
 const groupEntriesByDate = (entries) => {
   const TESTENTRY = {
@@ -24,7 +24,7 @@ const groupEntriesByDate = (entries) => {
   return groupedEntries;
 };
 
-const JournalLog = ({ user_id, showEntrySaved }) => {
+const EntryList = ({ user_id, showEntrySaved }) => {
   const [entries, setEntries] = useState([]);
   console.log(entries);
 
@@ -45,7 +45,7 @@ const JournalLog = ({ user_id, showEntrySaved }) => {
         const entries = groupedEntries[groupKey];
         const isShowEntrySaved = showEntrySaved && groupKey === groupKeys[0];
         return (
-          <GroupLogs
+          <EntryDetailCard
             key={groupKey}
             group={entries}
             date={groupKey}
@@ -57,4 +57,4 @@ const JournalLog = ({ user_id, showEntrySaved }) => {
     </div>
   );
 };
-export default JournalLog;
+export default EntryList;

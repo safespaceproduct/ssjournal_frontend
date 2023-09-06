@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import JournalLog from "./JournalLog";
-import JournalBox from "./JournalBox";
+import EntryList from "./EntryList";
+import EntryCreateBox from "./EntryCreateBox";
 import { getEntries, deleteEntry, postEntry } from "./database";
 import { formatDate } from "./utils";
 import { useParams } from "react-router-dom";
 
-const JournalEntry = ({showBox}) => {
+const MainScreen = ({showBox}) => {
   // journalBoxes are now objects with id and element
   const { user_id } = useParams();
   const [loggedEntries] = useState([]);
   const currentDate = Date.now();
   const formattedDate = formatDate(currentDate);
-  const [shouldRenderJournalLog, setShouldRenderJournalLog] = useState(true);
+  const [shouldRenderEntryList, setShouldRenderEntryList] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showRedoModal, setRedoModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
@@ -22,10 +22,10 @@ const JournalEntry = ({showBox}) => {
     setShowDeleteModal(true);
   };
 
-  const [journalBoxes, setJournalBoxes] = useState([
+  const [journalBoxes, setEntryCreateBoxes] = useState([
     {
       id: 0,
-      element: <JournalBox id={0} onDelete={deleteJournal} />,
+      element: <EntryCreateBox id={0} onDelete={deleteJournal} />,
     },
   ]);
 
@@ -44,7 +44,7 @@ const JournalEntry = ({showBox}) => {
 
     const entriesCopy = getEntries();
     setShowJournalEntry(false);
-    setShouldRenderJournalLog(false); // Set to false to hide the existing journal log temporarily
+    setShouldRenderEntryList(false); // Set to false to hide the existing journal log temporarily
     for (const entry of entriesCopy) {
       if (entry === "" || entry.text === "") {
         continue; // Skip this entry if its entry is empty, AHHAHAHA
@@ -57,7 +57,7 @@ const JournalEntry = ({showBox}) => {
     }
 
     try {
-      setShouldRenderJournalLog(true); // Set to true to re-render the JournalLog component with the new entries
+      setShouldRenderEntryList(true); // Set to true to re-render the EntryList component with the new entries
     } catch (error) {
       console.error(`Failed to fetch logged entries: ${error}`);
     }
@@ -68,16 +68,16 @@ const JournalEntry = ({showBox}) => {
     const newId = getEntries().length;
     const newBox = {
       id: newId,
-      element: <JournalBox id={newId} onDelete={deleteJournal} />,
+      element: <EntryCreateBox id={newId} onDelete={deleteJournal} />,
     };
-    setJournalBoxes((prev) => [...prev, newBox]);
+    setEntryCreateBoxes((prev) => [...prev, newBox]);
   };
 
   // delete journal box, and their entries
 
   const confirmDelete = () => {
     deleteEntry(deleteTarget);
-    setJournalBoxes((prev) => prev.filter((box) => box.id !== deleteTarget));
+    setEntryCreateBoxes((prev) => prev.filter((box) => box.id !== deleteTarget));
     setShowDeleteModal(false);
   };
 
@@ -111,10 +111,10 @@ const JournalEntry = ({showBox}) => {
           </div>
           </div>
         )}
-        {/* Render the JournalLog component only if shouldRenderJournalLog is true*/}
-        {shouldRenderJournalLog && (
+        {/* Render the EntryList component only if shouldRenderEntryList is true*/}
+        {shouldRenderEntryList && (
           <div>
-            <JournalLog user_id={user_id} showEntrySaved={!showJournalEntry} />
+            <EntryList user_id={user_id} showEntrySaved={!showJournalEntry} />
           </div>
         )}
       </div>
@@ -152,4 +152,4 @@ const JournalEntry = ({showBox}) => {
     </div>
   );
 };
-export default JournalEntry;
+export default MainScreen;
