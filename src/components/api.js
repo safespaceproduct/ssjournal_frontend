@@ -19,8 +19,8 @@ export function getEntries() {
   return journalEntries;
 }
 
-export async function postEntry(entry, user_id) {
-  const response = await fetch(`${API_URL}/journalentry/?token=${user_id}`, {
+export async function postEntry(entry, userId) {
+  const response = await fetch(`${API_URL}/journalentry/?token=${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,6 +28,7 @@ export async function postEntry(entry, user_id) {
     body: JSON.stringify({
       text: entry.text,
       category: entry.category,
+      user_sentiment : -1.0,
     }),
   });
   journalEntries = [];
@@ -39,8 +40,8 @@ export async function postEntry(entry, user_id) {
   return data;
 }
 
-export async function fetchEntry(user_id) {
-  const response = await fetch(`${API_URL}/journalentry/?token=${user_id}`);
+export async function fetchEntry(userId) {
+  const response = await fetch(`${API_URL}/journalentry/?token=${userId}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch entry: ${response.status}`);
   }
@@ -49,22 +50,14 @@ export async function fetchEntry(user_id) {
   return data;
 }
 
-export async function patchEntry(entry, user_id) {
-  console.log(
-    JSON.stringify({
-      text: entry.text,
-      category: entry.category,
-    })
-  );
-  const response = await fetch(`${API_URL}/journalentry/${entry.id}/?token=${user_id}`, {
+export async function patchEntry(entryId, payload, userId) {
+
+  const response = await fetch(`${API_URL}/journalentry/${entryId}/?token=${userId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      text: entry.text,
-      category: entry.category,
-    }),
+    body: JSON.stringify(payload),
   });
   if (!response.ok) {
     throw new Error(`Failed to patch entry: ${response.status}`);
@@ -74,8 +67,8 @@ export async function patchEntry(entry, user_id) {
   return updatedEntry;
 }
 
-export async function deleteEntryFromDB(entry_id, user_id) {
-  const response = await fetch(`${API_URL}/journalentry/${entry_id}/?token=${user_id}`, {
+export async function deleteEntryFromDB(entry_id, userId) {
+  const response = await fetch(`${API_URL}/journalentry/${entry_id}/?token=${userId}`, {
     method: "DELETE",
   });
 

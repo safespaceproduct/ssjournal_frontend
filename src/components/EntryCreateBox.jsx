@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { addEntry } from "./database";
+import { addEntry } from "./api";
 import { formatDate } from "./utils";
 import { ReactComponent as XButton } from "./charm_cross.svg";
 

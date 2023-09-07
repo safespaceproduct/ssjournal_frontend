@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import EntryList from "./EntryList";
 import EntryCreateBox from "./EntryCreateBox";
-import { getEntries, deleteEntry, postEntry } from "./database";
+import { getEntries, deleteEntry, postEntry } from "./api";
 import { formatDate } from "./utils";
 import { useParams } from "react-router-dom";
 
 const MainScreen = ({showBox}) => {
   // journalBoxes are now objects with id and element
-  const { user_id } = useParams();
+  const { userId } = useParams();
   const [loggedEntries] = useState([]);
   const currentDate = Date.now();
   const formattedDate = formatDate(currentDate);
@@ -50,7 +50,7 @@ const MainScreen = ({showBox}) => {
         continue; // Skip this entry if its entry is empty, AHHAHAHA
       }
       try {
-        await postEntry(entry, user_id);
+        await postEntry(entry, userId);
       } catch (error) {
         console.error(`Failed to post entry: ${error}`);
       }
@@ -114,7 +114,7 @@ const MainScreen = ({showBox}) => {
         {/* Render the EntryList component only if shouldRenderEntryList is true*/}
         {shouldRenderEntryList && (
           <div>
-            <EntryList user_id={user_id} showEntrySaved={!showJournalEntry} />
+            <EntryList userId={userId} showEntrySaved={!showJournalEntry} />
           </div>
         )}
       </div>

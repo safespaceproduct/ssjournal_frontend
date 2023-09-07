@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { formatDBDate } from "./utils";
-import { fetchEntry } from "./database";
+import { fetchEntry } from "./api";
 import EntryDetailCard from "./EntryDetailCard";
 
 const groupEntriesByDate = (entries) => {
@@ -24,18 +24,18 @@ const groupEntriesByDate = (entries) => {
   return groupedEntries;
 };
 
-const EntryList = ({ user_id, showEntrySaved }) => {
+const EntryList = ({ userId, showEntrySaved }) => {
   const [entries, setEntries] = useState([]);
   console.log(entries);
 
   useEffect(() => {
     const fetchEntries = async () => {
-      const entries = await fetchEntry(user_id);
+      const entries = await fetchEntry(userId);
       setEntries(entries);
     };
 
     fetchEntries();
-  }, [user_id]);
+  }, [userId]);
 
   const groupedEntries = groupEntriesByDate(entries);
   const groupKeys = Object.keys(groupedEntries);
@@ -50,7 +50,7 @@ const EntryList = ({ user_id, showEntrySaved }) => {
             group={entries}
             date={groupKey}
             showEntrySaved={isShowEntrySaved}
-            user_id={user_id}
+            userId={userId}
           />
         );
       })}

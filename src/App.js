@@ -15,7 +15,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route
-            path="users/:user_id"
+            path="users/:userId"
             element={<MainScreen showBox={true}/>}
           />
         </Routes>

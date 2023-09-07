@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { patchEntry, deleteEntryFromDB } from "./database";
+import { patchEntry, deleteEntryFromDB } from "./api";
 
 const EntryEditBox = ({
   entry_id,
@@ -7,7 +7,7 @@ const EntryEditBox = ({
   defaultText,
   date_created,
   onSave,
-  user_id,
+  userId,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [buttons, setButtons] = useState([
@@ -37,7 +37,7 @@ const EntryEditBox = ({
 
   const confirmDelete = async () => {
     try {
-      await deleteEntryFromDB(entry_id, user_id); // Call your API function to update the entry
+      await deleteEntryFromDB(entry_id, userId); // Call your API function to update the entry
       setShowDeleteModal(false);
       onSave(currEntry); // Notify the parent component that the entry has been saved
     } catch (error) {
@@ -96,7 +96,14 @@ const EntryEditBox = ({
       return ;
     }
     try {
-      await patchEntry(currEntry, user_id); // Call your API function to update the entry
+      
+      const payload = {
+        text: currEntry.text,
+        category: currEntry.category
+      };
+      const postId = currEntry.id;
+
+      await patchEntry(postId, payload, userId); // Call your API function to update the entry
       onSave(currEntry); // Notify the parent component that the entry has been saved
     } catch (error) {
       console.error(`Failed to update entry: ${error}`);

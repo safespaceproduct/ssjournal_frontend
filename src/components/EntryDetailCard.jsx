@@ -5,9 +5,13 @@ import { Icon } from "@iconify/react";
 
 import EntryEditBox from "./EntryEditBox";
 import EmotionSelector from "./EmotionSelector";
-import { patchEntry } from "./database";
+import { patchEntry } from "./api";
 
-const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
+const EMOTIONMAP = {0: -1, 1 : 90, 2 : 70, 3 : 50, 4 : 30, 5 : 10};
+const INVERSEEMOTIONMAP = {90: 1, 70 : 2, 50 : 3, 30 : 4, 10 : 5, 
+  '-1.0' : 0};
+
+const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
   const [editing, setEditing] = useState(null);
   const [entries, setEntries] = useState(group);
   // const [isEmpty, setIsEmpty] = useState(entries.length === 0);
@@ -24,14 +28,16 @@ const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
       return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  const changeEmotionCallback = async (newEmotionCode) => {
+  const generateChangeEmotionCallback = (entryId) => ( async (newEmotionCode) => {
+    
+    const payload = {
+      user_sentiment: EMOTIONMAP[newEmotionCode],
+    };
+    const response = await patchEntry(entryId, payload, userId);
 
-    const payload = {}
-    const response = await patchEntry();
-
-    await sleep(1000);
+    // await sleep(1000);
     console.log(newEmotionCode);
-  }
+  });
 
   const handleSave = (newEntry) => {
     // Update the state of the entries
@@ -73,7 +79,7 @@ const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
                   date_created={entry.date_created}
                   onCancel={handleCancel}
                   onSave={handleSave}
-                  user_id={user_id}
+                  userId={userId}
                 />
               ) : (
                 <div>
@@ -91,8 +97,8 @@ const EntryDetailCard = ({ group, date, showEntrySaved, user_id }) => {
                   </h3>
                   <p className="log-text">{entry.text}</p>
 
-                  <EmotionSelector emotionCodeInput={0} changeEmotionCallback={changeEmotionCallback}/>
-
+                  <EmotionSelector emotionCodeInput={INVERSEEMOTIONMAP[entry.user_sentiment]} 
+                    changeEmotionCallback={generateChangeEmotionCallback(entry.id)}/>
                   
                 </div>
               )}
