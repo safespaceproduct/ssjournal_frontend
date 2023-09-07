@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { patchEntry, deleteEntryFromDB } from "./api";
+import EmotionSelector from "./EmotionSelector";
+import { INVERSEEMOTIONMAP, getEmotionChangeHandler } from "./EntryDetailCard";
 
 const EntryEditBox = ({
   entry_id,
   defaultCategory,
   defaultText,
-  date_created,
+  dateCreated,
+  defaultSentiment,
   onSave,
   userId,
 }) => {
@@ -22,7 +25,8 @@ const EntryEditBox = ({
     id: entry_id,
     category: defaultCategory,
     text: defaultText,
-    date_created: date_created,
+    dateCreated: dateCreated,
+    userSentiment: defaultSentiment,
   });
   const textEvent = useRef(null);
 
@@ -78,6 +82,10 @@ const EntryEditBox = ({
   );
 
   useEffect(() => {
+
+    console.log("curr entry")
+    console.log(currEntry);
+
     // Set the initial active button based on the category prop, if provided
     if (defaultCategory) {
       const initialActiveButton = buttons.find(
@@ -91,7 +99,6 @@ const EntryEditBox = ({
 
   const handleSave = async () => {
     if (currEntry.text === "") {
-      console.log("Entry is empty");
       setShowDeleteModal(true);
       return ;
     }
@@ -99,12 +106,12 @@ const EntryEditBox = ({
       
       const payload = {
         text: currEntry.text,
-        category: currEntry.category
+        category: currEntry.category,
+        // user_sentiment: currEntry.userSentiment,
       };
       const postId = currEntry.id;
-
-      await patchEntry(postId, payload, userId); // Call your API function to update the entry
-      onSave(currEntry); // Notify the parent component that the entry has been saved
+      const response = await patchEntry(postId, payload, userId); // Call your API function to update the entry
+      onSave(response); // Notify the parent component that the entry has been saved
     } catch (error) {
       console.error(`Failed to update entry: ${error}`);
     }
@@ -151,6 +158,12 @@ const EntryEditBox = ({
         className="journal-text"
         value={currEntry.text}
       ></textarea>
+
+      <EmotionSelector emotionCodeInput={INVERSEEMOTIONMAP[currEntry.userSentiment]} 
+                        changeEmotionCallback={getEmotionChangeHandler(
+                          currEntry.id, 
+                          userId, (x) => {})
+                        }/>
 
         <div>
           <button className="save-button" onClick={handleSave}>

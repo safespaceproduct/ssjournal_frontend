@@ -63,7 +63,6 @@ export async function patchEntry(entryId, payload, userId) {
     throw new Error(`Failed to patch entry: ${response.status}`);
   }
   const updatedEntry = await response.json();
-  console.log(`Updated entry: ${JSON.stringify(updatedEntry)}`);
   return updatedEntry;
 }
 

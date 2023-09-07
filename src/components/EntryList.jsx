@@ -6,7 +6,7 @@ import EntryDetailCard from "./EntryDetailCard";
 const groupEntriesByDate = (entries) => {
   const TESTENTRY = {
     id: 1234,
-    date_created: "2023-07-01T12:34:56.000Z",
+    dateCreated: "2023-07-01T12:34:56.000Z",
     category: "Mood",
     text: "Feeling great today!",
   };
@@ -14,7 +14,7 @@ const groupEntriesByDate = (entries) => {
   const reversedEntries = [...testEntries].reverse();
   const groupedEntries = {};
   reversedEntries.forEach((entry) => {
-    const date = formatDBDate(entry.date_created);
+    const date = formatDBDate(entry.dateCreated);
     if (groupedEntries[date]) {
       groupedEntries[date].push(entry);
     } else {
@@ -26,8 +26,6 @@ const groupEntriesByDate = (entries) => {
 
 const EntryList = ({ userId, showEntrySaved }) => {
   const [entries, setEntries] = useState([]);
-  console.log(entries);
-
   useEffect(() => {
     const fetchEntries = async () => {
       const entries = await fetchEntry(userId);

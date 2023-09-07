@@ -58,7 +58,6 @@ const EntryCreateBox = ({ id, onDelete}) => {
       curr.text = text;
       return curr;
     });
-    console.log(currEntry);
   };
 
   const categoryPrompts = {

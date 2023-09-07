@@ -8,8 +8,20 @@ import EmotionSelector from "./EmotionSelector";
 import { patchEntry } from "./api";
 
 const EMOTIONMAP = {0: -1, 1 : 90, 2 : 70, 3 : 50, 4 : 30, 5 : 10};
-const INVERSEEMOTIONMAP = {90: 1, 70 : 2, 50 : 3, 30 : 4, 10 : 5, 
+export const INVERSEEMOTIONMAP = {90: 1, 70 : 2, 50 : 3, 30 : 4, 10 : 5, 
   '-1.0' : 0};
+
+export const getEmotionChangeHandler = (entryId, userId, callback) => ( async (newEmotionCode) => {
+  
+  const payload = {
+    user_sentiment: EMOTIONMAP[newEmotionCode],
+  };
+  const response = await patchEntry(entryId, payload, userId);
+
+  if (callback !== null){
+    callback(response);
+  }
+});
 
 const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
   const [editing, setEditing] = useState(null);
@@ -27,17 +39,6 @@ const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
   function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
   }
-
-  const generateChangeEmotionCallback = (entryId) => ( async (newEmotionCode) => {
-    
-    const payload = {
-      user_sentiment: EMOTIONMAP[newEmotionCode],
-    };
-    const response = await patchEntry(entryId, payload, userId);
-
-    // await sleep(1000);
-    console.log(newEmotionCode);
-  });
 
   const handleSave = (newEntry) => {
     // Update the state of the entries
@@ -76,8 +77,10 @@ const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
                   entry_id={entry.id}
                   defaultCategory={entry.category}
                   defaultText={entry.text}
-                  date_created={entry.date_created}
-                  onCancel={handleCancel}
+                  defaultSentiment={entry.user_sentiment}
+                  dateCreated={entry.dateCreated}
+                  onCancel={handleCancel} 
+                  // TODO: figure out why is onCancel not in the source code for EntryDetailCard
                   onSave={handleSave}
                   userId={userId}
                 />
@@ -86,7 +89,7 @@ const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
                   <h3>
                     About My {entry.category}{" "}
                     <span className="timeStyle">
-                      {getTime(entry.date_created)}
+                      {getTime(entry.dateCreated)}
                       <Icon
                         className="fas fa-edit"
                         icon="fluent:edit-20-regular"
@@ -98,7 +101,8 @@ const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
                   <p className="log-text">{entry.text}</p>
 
                   <EmotionSelector emotionCodeInput={INVERSEEMOTIONMAP[entry.user_sentiment]} 
-                    changeEmotionCallback={generateChangeEmotionCallback(entry.id)}/>
+                    changeEmotionCallback={getEmotionChangeHandler(entry.id, userId, handleSave)}
+                    detailMode={true}/>
                   
                 </div>
               )}

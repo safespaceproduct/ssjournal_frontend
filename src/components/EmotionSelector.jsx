@@ -20,11 +20,20 @@ const faces = [
     [face_bw_5, face_5],
 ]
 
-const EmotionSelector = ({ emotionCodeInput, changeEmotionCallback }) => {
+const EmotionSelector = ({ emotionCodeInput, changeEmotionCallback, detailMode }) => {
+    /*
+    The provision of the boolen 'detailMode' feels like I'm introducing
+    quite a bit of coupling here. I'm not entirely sure if there's a 
+    better way of doing this.
+    */
     
     const EmojiButtonStyle = {
         padding: "5px",
         width: "25px"
+    };
+
+    const EmojiButtonSmallStyle = {
+        width: "15px"
     };
 
     const emotionCodes = [1, 2, 3, 4, 5];
@@ -36,11 +45,15 @@ const EmotionSelector = ({ emotionCodeInput, changeEmotionCallback }) => {
         await changeEmotionCallback(newEmotionCode);
         setEmotionCode(newEmotionCode);
     }
-    
+
     return (
         <div>
             {
-                emotionCodes.map( (i) =>
+                (detailMode && (emotionCodes.includes(chosenEmotionCode))) ? 
+                (<div>I feel <img 
+                style={EmojiButtonSmallStyle} src={faces[chosenEmotionCode - 1][1]} alt={chosenEmotionCode} /></div>)
+
+                : emotionCodes.map( (i) =>
                 <img onClick={() => onButtonClick(i)} 
                     style={EmojiButtonStyle} src={faces[i - 1][chosenEmotionCode === i ? 1 : 0]} alt={i} />)
             }
