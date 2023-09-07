@@ -24,6 +24,9 @@ export const getEmotionChangeHandler = (entryId, userId, callback) => ( async (n
 });
 
 const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
+
+  console.log("current date", date);
+
   const [editing, setEditing] = useState(null);
   const [entries, setEntries] = useState(group);
   // const [isEmpty, setIsEmpty] = useState(entries.length === 0);
@@ -78,7 +81,7 @@ const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
                   defaultCategory={entry.category}
                   defaultText={entry.text}
                   defaultSentiment={entry.user_sentiment}
-                  dateCreated={entry.dateCreated}
+                  date_created={entry.date_created}
                   onCancel={handleCancel} 
                   // TODO: figure out why is onCancel not in the source code for EntryDetailCard
                   onSave={handleSave}
@@ -89,7 +92,7 @@ const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
                   <h3>
                     About My {entry.category}{" "}
                     <span className="timeStyle">
-                      {getTime(entry.dateCreated)}
+                      {getTime(entry.date_created)}
                       <Icon
                         className="fas fa-edit"
                         icon="fluent:edit-20-regular"

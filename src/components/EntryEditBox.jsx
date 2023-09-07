@@ -7,7 +7,7 @@ const EntryEditBox = ({
   entry_id,
   defaultCategory,
   defaultText,
-  dateCreated,
+  date_created,
   defaultSentiment,
   onSave,
   userId,
@@ -25,8 +25,8 @@ const EntryEditBox = ({
     id: entry_id,
     category: defaultCategory,
     text: defaultText,
-    dateCreated: dateCreated,
-    userSentiment: defaultSentiment,
+    date_created: date_created,
+    user_sentiment: defaultSentiment,
   });
   const textEvent = useRef(null);
 
@@ -107,7 +107,7 @@ const EntryEditBox = ({
       const payload = {
         text: currEntry.text,
         category: currEntry.category,
-        // user_sentiment: currEntry.userSentiment,
+        // user_sentiment: currEntry.user_sentiment,
       };
       const postId = currEntry.id;
       const response = await patchEntry(postId, payload, userId); // Call your API function to update the entry
@@ -159,7 +159,7 @@ const EntryEditBox = ({
         value={currEntry.text}
       ></textarea>
 
-      <EmotionSelector emotionCodeInput={INVERSEEMOTIONMAP[currEntry.userSentiment]} 
+      <EmotionSelector emotionCodeInput={INVERSEEMOTIONMAP[currEntry.user_sentiment]} 
                         changeEmotionCallback={getEmotionChangeHandler(
                           currEntry.id, 
                           userId, (x) => {})

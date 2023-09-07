@@ -6,7 +6,7 @@ import EntryDetailCard from "./EntryDetailCard";
 const groupEntriesByDate = (entries) => {
   const TESTENTRY = {
     id: 1234,
-    dateCreated: "2023-07-01T12:34:56.000Z",
+    date_created: "2023-07-01T12:34:56.000Z",
     category: "Mood",
     text: "Feeling great today!",
   };
@@ -14,7 +14,9 @@ const groupEntriesByDate = (entries) => {
   const reversedEntries = [...testEntries].reverse();
   const groupedEntries = {};
   reversedEntries.forEach((entry) => {
-    const date = formatDBDate(entry.dateCreated);
+    console.log(entry);
+
+    const date = formatDBDate(entry.date_created);
     if (groupedEntries[date]) {
       groupedEntries[date].push(entry);
     } else {
