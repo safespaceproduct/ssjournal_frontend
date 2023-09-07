@@ -83,8 +83,6 @@ const EntryEditBox = ({
 
   useEffect(() => {
 
-    console.log("curr entry")
-    console.log(currEntry);
 
     // Set the initial active button based on the category prop, if provided
     if (defaultCategory) {

@@ -14,7 +14,6 @@ const groupEntriesByDate = (entries) => {
   const reversedEntries = [...testEntries].reverse();
   const groupedEntries = {};
   reversedEntries.forEach((entry) => {
-    console.log(entry);
 
     const date = formatDBDate(entry.date_created);
     if (groupedEntries[date]) {

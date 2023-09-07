@@ -25,8 +25,6 @@ export const getEmotionChangeHandler = (entryId, userId, callback) => ( async (n
 
 const EntryDetailCard = ({ group, date, showEntrySaved, userId }) => {
 
-  console.log("current date", date);
-
   const [editing, setEditing] = useState(null);
   const [entries, setEntries] = useState(group);
   // const [isEmpty, setIsEmpty] = useState(entries.length === 0);
