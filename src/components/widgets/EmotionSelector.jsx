@@ -28,7 +28,10 @@ const EmotionSelector = ({ emotionCodeInput, changeEmotionCallback, detailMode }
     */
     
     const EmojiButtonStyle = {
-        padding: "8px",
+        "padding-left": "8px",
+        "padding-right": "8px",
+        "padding-top": "0px",
+        "padding-bottom": "8px",
         width: "40px"
     };
 
@@ -50,7 +53,7 @@ const EmotionSelector = ({ emotionCodeInput, changeEmotionCallback, detailMode }
         <div>
             {
                 (detailMode && (emotionCodes.includes(chosenEmotionCode))) ? 
-                (<div>I feel <img 
+                (<div><p className="user-emotion-text">I feel </p><img 
                 style={EmojiButtonSmallStyle} src={faces[chosenEmotionCode - 1][1]} alt={chosenEmotionCode} /></div>)
 
                 : emotionCodes.map( (i) =>
