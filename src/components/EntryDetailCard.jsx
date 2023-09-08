@@ -4,7 +4,7 @@ import { CheckOne } from "@icon-park/react";
 import { Icon } from "@iconify/react";
 
 import EntryEditBox from "./EntryEditBox";
-import EmotionSelector from "./EmotionSelector";
+import EmotionSelector from "./widgets/EmotionSelector";
 import { patchEntry } from "./api";
 
 const EMOTIONMAP = {0: -1, 1 : 90, 2 : 70, 3 : 50, 4 : 30, 5 : 10};

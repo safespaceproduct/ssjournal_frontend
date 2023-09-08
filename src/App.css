@@ -22,6 +22,8 @@ h1 {
 h2 {
   font-size: 1.4rem;
   font-family: "montserrat", sans-serif;
+  margin-bottom: 8px;
+  margin-top: 12px;
 }
 
 h3 {
@@ -65,7 +67,13 @@ h3 {
 
 .journal-header {
   display: flex;
-  align-items: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.journal-header-bottom {
+  display: flex; 
+  margin-bottom: 4px;
 }
 
 .topic-buttons {
@@ -86,7 +94,8 @@ h3 {
   border: 2px solid #ddd;
   border-style: dashed;
   margin-right: 8%;
-  margin-top: 2%;
+  margin-top: 4px;
+  /* margin-top: 2%; */
 }
 
 .topic-buttons button:hover {

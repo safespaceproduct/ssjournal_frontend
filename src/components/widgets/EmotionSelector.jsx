@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-import face_bw_1 from '../images/emojis/1.png';
-import face_bw_2 from '../images/emojis/2.png';
-import face_bw_3 from '../images/emojis/3.png';
-import face_bw_4 from '../images/emojis/4.png';
-import face_bw_5 from '../images/emojis/5.png';
+import face_bw_1 from '../../images/emojis/1.png';
+import face_bw_2 from '../../images/emojis/2.png';
+import face_bw_3 from '../../images/emojis/3.png';
+import face_bw_4 from '../../images/emojis/4.png';
+import face_bw_5 from '../../images/emojis/5.png';
 
-import face_1 from '../images/emojis/1-c.png';
-import face_2 from '../images/emojis/2-c.png';
-import face_3 from '../images/emojis/3-c.png';
-import face_4 from '../images/emojis/4-c.png';
-import face_5 from '../images/emojis/5-c.png';
+import face_1 from '../../images/emojis/1-c.png';
+import face_2 from '../../images/emojis/2-c.png';
+import face_3 from '../../images/emojis/3-c.png';
+import face_4 from '../../images/emojis/4-c.png';
+import face_5 from '../../images/emojis/5-c.png';
 
 const faces = [
     [face_bw_1, face_1],
@@ -28,8 +28,8 @@ const EmotionSelector = ({ emotionCodeInput, changeEmotionCallback, detailMode }
     */
     
     const EmojiButtonStyle = {
-        padding: "5px",
-        width: "25px"
+        padding: "8px",
+        width: "40px"
     };
 
     const EmojiButtonSmallStyle = {

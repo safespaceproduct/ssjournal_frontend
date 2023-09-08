@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { patchEntry, deleteEntryFromDB } from "./api";
-import EmotionSelector from "./EmotionSelector";
+import EmotionSelector from "./widgets/EmotionSelector";
 import { INVERSEEMOTIONMAP, getEmotionChangeHandler } from "./EntryDetailCard";
 
 const EntryEditBox = ({
@@ -120,7 +120,7 @@ const EntryEditBox = ({
       <hr />
       <div className="journal-header">
         <h2>I'm writing about my</h2>
-
+<br />
         <div className={`topic-buttons ${showMoreButton ? "active" : ""}`}>
           {buttons.map((btn) => (
             <button

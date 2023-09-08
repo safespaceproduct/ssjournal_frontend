@@ -78,38 +78,45 @@ const EntryCreateBox = ({ id, onDelete}) => {
   return (
     <div className="journal-box">
       <div className="journal-header">
-        <h2>I'm writing about my</h2>
-        <div className={`topic-buttons ${showMoreButton ? "active" : ""}`}>
-          {buttons.map((btn) => (
-            <button
-              key={btn.topic}
-              className={activeButton === btn.topic ? "active" : ""}
-              onClick={() => handleClick(btn.topic)}
-              style={{ display: btn.hide ? "none" : "inline" }}
-            >
-              {btn.topic}
-            </button>
-          ))}
-          {showMoreButton && (
-            <button
-              className={`more ${showMoreButton ? "active" : ""}`}
-              onClick={() => {
-                setShowMoreButton(false);
-                setActiveButton(null);
-                setButtons((prev) =>
-                  prev.map((btn) => ({ ...btn, hide: false }))
-                );
-              }}
-            >
-              ...
-            </button>
-          )}
+        <div><h2>I'm writing about my</h2></div>
+
+        <div className='journal-header-bottom'>
+          
+          <div className={`topic-buttons ${showMoreButton ? "active" : ""}`}>
+            {buttons.map((btn) => (
+              <button
+                key={btn.topic}
+                className={activeButton === btn.topic ? "active" : ""}
+                onClick={() => handleClick(btn.topic)}
+                style={{ display: btn.hide ? "none" : "inline" }}
+              >
+                {btn.topic}
+              </button>
+            ))}
+            {showMoreButton && (
+              <button
+                className={`more ${showMoreButton ? "active" : ""}`}
+                onClick={() => {
+                  setShowMoreButton(false);
+                  setActiveButton(null);
+                  setButtons((prev) =>
+                    prev.map((btn) => ({ ...btn, hide: false }))
+                  );
+                }}
+              >
+                ...
+              </button>
+            )}
+          </div>
+          <button
+            className="delete-journal"
+            onClick={handleDelete}>
+            <XButton />
+          </button>{" "}
+
         </div>
-        <button
-          className="delete-journal"
-          onClick={handleDelete}>
-          <XButton />
-        </button>{" "}
+        
+        
       </div>
 
       <textarea
