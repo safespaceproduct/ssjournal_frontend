@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ssjournal_frontend/static/css/main.053e9635.css",
-    "main.js": "/ssjournal_frontend/static/js/main.5089f995.js",
+    "main.css": "/ssjournal_frontend/static/css/main.dc23fe81.css",
+    "main.js": "/ssjournal_frontend/static/js/main.1bf93fa0.js",
     "static/js/787.62c743a0.chunk.js": "/ssjournal_frontend/static/js/787.62c743a0.chunk.js",
     "index.html": "/ssjournal_frontend/index.html",
     "static/media/charm_cross.svg": "/ssjournal_frontend/static/media/charm_cross.eb22c9cf8baf38ff9ab1bdcbf1a841f4.svg",
-    "main.053e9635.css.map": "/ssjournal_frontend/static/css/main.053e9635.css.map",
-    "main.5089f995.js.map": "/ssjournal_frontend/static/js/main.5089f995.js.map",
+    "main.dc23fe81.css.map": "/ssjournal_frontend/static/css/main.dc23fe81.css.map",
+    "main.1bf93fa0.js.map": "/ssjournal_frontend/static/js/main.1bf93fa0.js.map",
     "787.62c743a0.chunk.js.map": "/ssjournal_frontend/static/js/787.62c743a0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.053e9635.css",
-    "static/js/main.5089f995.js"
+    "static/css/main.dc23fe81.css",
+    "static/js/main.1bf93fa0.js"
   ]
 }
