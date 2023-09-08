@@ -13,6 +13,10 @@ const groupEntriesByDate = (entries) => {
   const testEntries = [...entries];
   const reversedEntries = [...testEntries].reverse();
   const groupedEntries = {};
+
+  // console.log(groupedEntries);
+  // console.log(reversedEntries);
+
   reversedEntries.forEach((entry) => {
 
     const date = formatDBDate(entry.date_created);
@@ -22,7 +26,9 @@ const groupEntriesByDate = (entries) => {
       groupedEntries[date] = [entry];
     }
   });
+  console.log('grouped entries', groupedEntries);
   return groupedEntries;
+
 };
 
 const EntryList = ({ userId, showEntrySaved }) => {
@@ -37,7 +43,7 @@ const EntryList = ({ userId, showEntrySaved }) => {
   }, [userId]);
 
   const groupedEntries = groupEntriesByDate(entries);
-  const groupKeys = Object.keys(groupedEntries);
+  const groupKeys = Object.keys(groupedEntries).sort().reverse();
   return (
     <div className="journal-log">
       {groupKeys.map((groupKey) => {
